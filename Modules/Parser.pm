@@ -5,7 +5,7 @@
 =encoding utf8
 =cut
 
-package Filter;
+package Parser;
 
 use strict;
 use warnings;
@@ -282,10 +282,16 @@ sub generateList {
     print $presentationWriter $documentFormatter->{openHtml};
     print $presentationWriter $documentFormatter->{openHead};
     print $presentationWriter $documentFormatter->{openStyle};
+    
+    print $presentationWriter $documentDesigner->{indentSelector} . $documentDesigner->{googleFont};
 
     print $presentationWriter $documentDesigner->{indentSelector} . "body" . $documentDesigner->{openBlock};
     print $presentationWriter $documentDesigner->{indentBlock}. "background-color: " . $documentDesigner->{backgroundColor};
     print $presentationWriter $documentDesigner->{indentBlock}. "font-family: " . $documentDesigner->{fontFamily};
+    print $presentationWriter $documentDesigner->{closeBlock};
+
+    print $presentationWriter $documentDesigner->{indentSelector} . "li" . $documentDesigner->{openBlock};
+    print $presentationWriter $documentDesigner->{indentBlock}. "list-style-type: " . $documentDesigner->{listStyle};
     print $presentationWriter $documentDesigner->{closeBlock};
 
     print $presentationWriter $documentDesigner->{indentSelector} . "td, " . "th" . $documentDesigner->{openBlock};
@@ -310,7 +316,7 @@ sub generateList {
     print $presentationWriter $documentFormatter->{openBody};
 
     print $presentationWriter $documentFormatter->{openHeader};
-    print $presentationWriter "Authentications During " . $reportingPeriod;
+    print $presentationWriter "Matches During " . $reportingPeriod;
     print $presentationWriter $documentFormatter->{closeHeader};
 
     print $presentationWriter $documentFormatter->{openUnorderedList};
@@ -334,6 +340,8 @@ sub generateList {
 
                 push(@userAuthentications, $recomposedEntry);
             }
+        } elsif (grep {/run-parts/} $reportEntry) {
+            print $presentationWriter $documentFormatter->{openListEntry} . $reportEntry . $documentFormatter->{closeListEntry};
         }
     }
 

@@ -19,7 +19,7 @@ sub new{
     openBody => "\t<body>\n",
     openHeader => "\t\t<h3>",
     openHeaderSmall => "\t\t<h4>",
-    openParagraph => "\t\t<p>",
+    openParagraph => "<p>",
     openTable => "\t\t<table>\n",
     openTableHeader => "<th>",
     openTableRow => "\t\t\t<tr>",
@@ -38,7 +38,7 @@ sub new{
     closeTableRow => "</tr>\n",
     closeTableCell => "</td>",
     closeUnorderedList => "\t\t</ul>\n",
-    closeListEntry => "</li>\n"
+    closeListEntry => "\t\t\t</li>\n"
   }, $object;
 
   return $this;

@@ -11,12 +11,17 @@ use strict;
 use warnings;
 
 sub new{
+
+    my $googleFont = q(@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap'););
+
     my $object = @_;
     my $this = bless {
-    backgroundColor => "gainsboro;\n",
+    googleFont => "$googleFont\n",
+    backgroundColor => "whitesmoke;\n",
     display => "list;/n",
-    fontFamily => "Montserrat, Helvetica, Sans-Serif;\n",
-    fontWeight => "normal;\n",
+    fontFamily => "Ubuntu, Montserrat, Helvetica, Sans-Serif;\n",
+    fontWeight => "450;\n",
+    fontSize => "11pt;\n",
     textAlign => "center;\n",
     borderWidth => "1px;\n",
     borderStyle => "solid;\n",
@@ -29,7 +34,8 @@ sub new{
     openBlock => "{\n",
     closeBlock => "\t\t}\n",
     indentSelector => "\t\t",
-    indentBlock => "\t\t\t"
+    indentBlock => "\t\t\t",
+    listStyle => "disclosure-closed\n"
   }, $object;
 
   return $this;

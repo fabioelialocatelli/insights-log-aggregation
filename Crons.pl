@@ -11,7 +11,7 @@ use warnings;
 use lib 'Modules';
 use Parser;
 
-my $logFilter = Filter->new({
+my $logFilter = Parser->new({
   reportingPeriod => pop(@ARGV)
 });
 
