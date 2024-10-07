@@ -35,8 +35,4 @@ while ( < $reportReader > ) {
   print $_
 }
 
-<<<<<<< HEAD
 close $reportReader;
-=======
-close $reportReader;
->>>>>>> 693c3f6 (Updated Contact Details)

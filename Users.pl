@@ -9,12 +9,12 @@ use strict;
 use warnings;
 
 use lib 'Modules';
-use Filter;
+use Parser;
 
-my $filter = Filter->new({
+my $parser = Parser->new({
   reportingPeriod => pop(@ARGV)
 });
 
-$filter->mergeLogs();
-$filter->parseMarkup();
-$filter->clearMarkup();
+$parser->mergeLogs();
+$parser->parseMarkup();
+$parser->clearMarkup();

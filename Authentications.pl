@@ -9,13 +9,13 @@ use strict;
 use warnings;
 
 use lib 'Modules';
-use Filter;
+use Parser;
 
-my $filter = Filter->new({
+my $parser = Parser->new({
   reportingPeriod => pop(@ARGV)
 });
 
-$filter->mergeLogs();
-$filter->generateReport();
-$filter->generateList();
-$filter->countAuthentications();
+$parser->mergeLogs();
+$parser->generateReport();
+$parser->generateList();
+$parser->countAuthentications();

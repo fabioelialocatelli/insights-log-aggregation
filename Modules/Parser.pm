@@ -257,19 +257,27 @@ sub generateList {
     my @userAuthenticationsUnique;
 
     my $this = shift();
+    my $baseDirectory = getcwd();
+
     my $reportFile = $this->{reportFile};
     my $globbedFile = $this->{globbedFile};
     my $presentationFile = $this->{presentationFile};
     my $reportingPeriod = $this->{reportingPeriod};
 
+    my $textManipulationDirectory = $this->{textManipulationDirectory};
+
+    my $presentationOutputDirectory = catdir($baseDirectory, $textManipulationDirectory);
+    my $presentationFilePath = catfile($presentationOutputDirectory , $presentationFile);
+    my $reportFilePath = catfile($presentationOutputDirectory , $reportFile);
+
     my $documentDesigner = Designer->new();
     my $documentFormatter = Formatter->new();
 
-    open($reportReader, '<:encoding(UTF-8)', $reportFile)
-    or die "Could not open $reportFile for reading...";
+    open($reportReader, '<:encoding(UTF-8)', $reportFilePath)
+    or die "Could not open $reportFilePath for reading...";
 
-    open($presentationWriter, '>:encoding(UTF-8)', $presentationFile)
-    or die "Could not open $presentationFile for writing...";
+    open($presentationWriter, '>:encoding(UTF-8)', $presentationFilePath)
+    or die "Could not open $presentationFilePath for writing...";
 
     print $presentationWriter $documentFormatter->{openHtml};
     print $presentationWriter $documentFormatter->{openHead};

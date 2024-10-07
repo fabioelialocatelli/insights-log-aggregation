@@ -9,7 +9,7 @@ use strict;
 use warnings;
 
 use lib 'Modules';
-use Filter;
+use Parser;
 
 my $logFilter = Filter->new({
   reportingPeriod => pop(@ARGV)
@@ -17,3 +17,4 @@ my $logFilter = Filter->new({
 
 $logFilter->mergeLogs();
 $logFilter->generateReport();
+$logFilter->generateList();
