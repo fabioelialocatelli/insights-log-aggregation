@@ -1,38 +1,32 @@
 use diagnostics;
 use warnings;
+use strict;
 
 use Cwd;
-
+use POSIX qw(strftime);
 use File::Spec::Functions;
 
+my $hostGroup = $ARGV[0];
+
 my $baseDirectory = getcwd();
-my $reportingFile = 'seagulls.txt';
-my $reportingDirectory = 'Reports';
+my $playbookExecution = strftime "%Y%m%d_%H%M%S", localtime;
 
-my $outputDirectory = catdir($baseDirectory, $reportingDirectory);
-my $outputFile = catfile($outputDirectory, $reportingFile);
+my $playbookExecutionLog = "patching_${hostGroup}_${playbookExecution}.log";
+my $loggingDirectory = 'Runs';
 
-my $outputString = 'seagulls love crabs';
+my $playbookLogDirectory = catdir($baseDirectory, $loggingDirectory);
+my $playbookLog = catfile($playbookLogDirectory, $playbookExecutionLog);
 
-if (-d $outputDirectory) {
-  rmdir $outputDirectory;
-} else {
-
-  mkdir $outputDirectory;
-
+unless ( -d $playbookLogDirectory) {
+   mkdir $playbookLogDirectory;
 }
 
-open(my $reportWriter, '>:utf8', $outputFile)
-or die "Could not open $outputFile for writing...";
+open(my $playbookLogWriter, '>:utf8', $playbookLog)
+or die "Could not open $playbookLog for writing...";
 
-print $reportWriter $outputString;
-close $reportWriter;
-
-open(my $reportReader, '<:utf8', $outputFile)
-or die "Could not open $outputFile for reading...";
-
-while ( < $reportReader > ) {
-  print $_
+my @playbookExecution = `ansible-playbook patching.yml -l $hostGroup -K`;
+foreach (@playbookExecution) {
+  print $playbookLogWriter $_
 }
 
-close $reportReader;
+close $playbookLogWriter;
